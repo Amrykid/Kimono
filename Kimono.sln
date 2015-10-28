@@ -1,0 +1,67 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kimono", "src\Kimono\Kimono.csproj", "{329833B1-79B7-4724-B9A2-0629D735BEA1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{E0CA78BD-2703-4E8A-BC2F-202782C58754}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KimonoMasterDetail", "src\Examples\KimonoMasterDetail\KimonoMasterDetail.csproj", "{5E4A179C-E250-44C2-9D97-F4EC545ABB94}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|ARM = Debug|ARM
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|ARM = Release|ARM
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{329833B1-79B7-4724-B9A2-0629D735BEA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{329833B1-79B7-4724-B9A2-0629D735BEA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{329833B1-79B7-4724-B9A2-0629D735BEA1}.Debug|ARM.ActiveCfg = Debug|ARM
+		{329833B1-79B7-4724-B9A2-0629D735BEA1}.Debug|ARM.Build.0 = Debug|ARM
+		{329833B1-79B7-4724-B9A2-0629D735BEA1}.Debug|x64.ActiveCfg = Debug|x64
+		{329833B1-79B7-4724-B9A2-0629D735BEA1}.Debug|x64.Build.0 = Debug|x64
+		{329833B1-79B7-4724-B9A2-0629D735BEA1}.Debug|x86.ActiveCfg = Debug|x86
+		{329833B1-79B7-4724-B9A2-0629D735BEA1}.Debug|x86.Build.0 = Debug|x86
+		{329833B1-79B7-4724-B9A2-0629D735BEA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{329833B1-79B7-4724-B9A2-0629D735BEA1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{329833B1-79B7-4724-B9A2-0629D735BEA1}.Release|ARM.ActiveCfg = Release|ARM
+		{329833B1-79B7-4724-B9A2-0629D735BEA1}.Release|ARM.Build.0 = Release|ARM
+		{329833B1-79B7-4724-B9A2-0629D735BEA1}.Release|x64.ActiveCfg = Release|x64
+		{329833B1-79B7-4724-B9A2-0629D735BEA1}.Release|x64.Build.0 = Release|x64
+		{329833B1-79B7-4724-B9A2-0629D735BEA1}.Release|x86.ActiveCfg = Release|x86
+		{329833B1-79B7-4724-B9A2-0629D735BEA1}.Release|x86.Build.0 = Release|x86
+		{5E4A179C-E250-44C2-9D97-F4EC545ABB94}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{5E4A179C-E250-44C2-9D97-F4EC545ABB94}.Debug|ARM.ActiveCfg = Debug|ARM
+		{5E4A179C-E250-44C2-9D97-F4EC545ABB94}.Debug|ARM.Build.0 = Debug|ARM
+		{5E4A179C-E250-44C2-9D97-F4EC545ABB94}.Debug|ARM.Deploy.0 = Debug|ARM
+		{5E4A179C-E250-44C2-9D97-F4EC545ABB94}.Debug|x64.ActiveCfg = Debug|x64
+		{5E4A179C-E250-44C2-9D97-F4EC545ABB94}.Debug|x64.Build.0 = Debug|x64
+		{5E4A179C-E250-44C2-9D97-F4EC545ABB94}.Debug|x64.Deploy.0 = Debug|x64
+		{5E4A179C-E250-44C2-9D97-F4EC545ABB94}.Debug|x86.ActiveCfg = Debug|x86
+		{5E4A179C-E250-44C2-9D97-F4EC545ABB94}.Debug|x86.Build.0 = Debug|x86
+		{5E4A179C-E250-44C2-9D97-F4EC545ABB94}.Debug|x86.Deploy.0 = Debug|x86
+		{5E4A179C-E250-44C2-9D97-F4EC545ABB94}.Release|Any CPU.ActiveCfg = Release|x86
+		{5E4A179C-E250-44C2-9D97-F4EC545ABB94}.Release|ARM.ActiveCfg = Release|ARM
+		{5E4A179C-E250-44C2-9D97-F4EC545ABB94}.Release|ARM.Build.0 = Release|ARM
+		{5E4A179C-E250-44C2-9D97-F4EC545ABB94}.Release|ARM.Deploy.0 = Release|ARM
+		{5E4A179C-E250-44C2-9D97-F4EC545ABB94}.Release|x64.ActiveCfg = Release|x64
+		{5E4A179C-E250-44C2-9D97-F4EC545ABB94}.Release|x64.Build.0 = Release|x64
+		{5E4A179C-E250-44C2-9D97-F4EC545ABB94}.Release|x64.Deploy.0 = Release|x64
+		{5E4A179C-E250-44C2-9D97-F4EC545ABB94}.Release|x86.ActiveCfg = Release|x86
+		{5E4A179C-E250-44C2-9D97-F4EC545ABB94}.Release|x86.Build.0 = Release|x86
+		{5E4A179C-E250-44C2-9D97-F4EC545ABB94}.Release|x86.Deploy.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5E4A179C-E250-44C2-9D97-F4EC545ABB94} = {E0CA78BD-2703-4E8A-BC2F-202782C58754}
+	EndGlobalSection
+EndGlobal
