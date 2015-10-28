@@ -48,12 +48,14 @@
         <RelativePanel x:Name="relativePanelParent">
             <ContentPresenter x:Name="masterViewContentControl" RelativePanel.AlignLeftWithPanel="True" 
                             VerticalContentAlignment="Stretch" VerticalAlignment="Stretch" Width="400" 
+                            HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch"
                             Content="{Binding MasterViewPaneContent, ElementName=thisControl, UpdateSourceTrigger=PropertyChanged}"
                             Height="{Binding ElementName=relativePanelParent, Path=ActualHeight}" />
             
             <ContentPresenter x:Name="detailViewContentControl" RelativePanel.AlignRightWithPanel="True" 
                             RelativePanel.RightOf="masterViewContentControl" Width="NaN" 
                             VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" 
+                            HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch"
                             Content="{Binding DetailViewPaneContent, ElementName=thisControl, UpdateSourceTrigger=PropertyChanged}"
                             Height="{Binding ElementName=relativePanelParent, Path=ActualHeight}" />
         </RelativePanel>
