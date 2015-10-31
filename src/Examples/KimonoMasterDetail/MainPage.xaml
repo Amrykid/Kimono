@@ -9,7 +9,7 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <kimono:MasterDetailViewControl x:Name="previewControl" PreviewItem="{Binding SelectedItem, UpdateSourceTrigger=PropertyChanged}">
+        <kimono:MasterDetailViewControl x:Name="previewControl" PreviewItem="{Binding SelectedItem, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
             <kimono:MasterDetailViewControl.MasterViewPaneContent>
                 <ListBox x:Name="masterListBox" SelectedItem="{Binding SelectedItem, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                          ItemsSource="{Binding DataItems, UpdateSourceTrigger=PropertyChanged}">

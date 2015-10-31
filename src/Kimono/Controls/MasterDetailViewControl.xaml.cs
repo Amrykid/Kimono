@@ -21,6 +21,8 @@ namespace Kimono.Controls
     public sealed partial class MasterDetailViewControl : UserControl
     {
         private bool isInOnePaneMode = false;
+        private double lastWindowWidth = 0;
+        private double lastWindowHeight = 0;
         private SystemNavigationManager navigationManager = null;
 
         public MasterDetailViewControl()
@@ -72,7 +74,7 @@ namespace Kimono.Controls
             {
                 if (PreviewItem != null)
                 {
-                    //PreviewItem = null;
+                    PreviewItem = null;
 
                     //EvaluateLayout();
 
@@ -87,6 +89,8 @@ namespace Kimono.Controls
         {
             double width = Window.Current.Bounds.Width;
             double height = Window.Current.Bounds.Height;
+
+            bool isOrientationChange = width == lastWindowHeight && height == lastWindowWidth;
 
             /* According to https://msdn.microsoft.com/en-us/library/windows/apps/dn997765.aspx - The recommend style is as follows:
              * 320 epx-719 epx (Available window width) = Stacked (Single pane shown at one time)
@@ -103,11 +107,15 @@ namespace Kimono.Controls
             {
                 isInOnePaneMode = true;
 
-                VisualStateManager.GoToState(this, (PreviewItem != null ? "OnePaneDetailVisualState" : "OnePaneMasterVisualState"), true);
+                if (!isOrientationChange)
+                    VisualStateManager.GoToState(this, (PreviewItem != null ? "OnePaneDetailVisualState" : "OnePaneMasterVisualState"), true);
             }
+
+            lastWindowHeight = height;
+            lastWindowWidth = width;
         }
 
-        public static readonly DependencyProperty MasterViewPaneContentProperty = DependencyProperty.Register("MasterViewPaneContent", typeof(FrameworkElement), 
+        public static readonly DependencyProperty MasterViewPaneContentProperty = DependencyProperty.Register("MasterViewPaneContent", typeof(FrameworkElement),
             typeof(MasterDetailViewControl), new PropertyMetadata(null));
 
         public FrameworkElement MasterViewPaneContent

@@ -15,49 +15,49 @@
             <VisualStateGroup>
                 <VisualState x:Name="TwoPaneVisualState">
                     <VisualState.Setters>
-                        <Setter Target="masterViewContentControl.Visibility" Value="Visible" />
-                        <Setter Target="masterViewContentControl.Width" Value="400" />
-                        <Setter Target="masterViewContentControl.(RelativePanel.AlignLeftWithPanel)" Value="True" />
+                        <Setter Target="PART_masterViewContentControl.Visibility" Value="Visible" />
+                        <Setter Target="PART_masterViewContentControl.Width" Value="400" />
+                        <Setter Target="PART_masterViewContentControl.(RelativePanel.AlignLeftWithPanel)" Value="True" />
 
-                        <Setter Target="detailViewContentControl.Visibility" Value="Visible" />
-                        <Setter Target="detailViewContentControl.(RelativePanel.AlignRightWithPanel)" Value="True" />
-                        <Setter Target="detailViewContentControl.(RelativePanel.RightOf)" Value="masterViewContentControl" />
+                        <Setter Target="PART_detailViewContentControl.Visibility" Value="Visible" />
+                        <Setter Target="PART_detailViewContentControl.(RelativePanel.AlignRightWithPanel)" Value="True" />
+                        <Setter Target="PART_detailViewContentControl.(RelativePanel.RightOf)" Value="PART_masterViewContentControl" />
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="OnePaneMasterVisualState">
                     <VisualState.Setters>
-                        <Setter Target="masterViewContentControl.Visibility" Value="Visible" />
-                        <Setter Target="masterViewContentControl.Width" Value="NaN" />
-                        <Setter Target="masterViewContentControl.(RelativePanel.AlignLeftWithPanel)" Value="True" />
+                        <Setter Target="PART_masterViewContentControl.Visibility" Value="Visible" />
+                        <Setter Target="PART_masterViewContentControl.Width" Value="NaN" />
+                        <Setter Target="PART_masterViewContentControl.(RelativePanel.AlignLeftWithPanel)" Value="True" />
                         
-                        <Setter Target="detailViewContentControl.Visibility" Value="Collapsed" />
+                        <Setter Target="PART_detailViewContentControl.Visibility" Value="Collapsed" />
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="OnePaneDetailVisualState">
                     <VisualState.Setters>
-                        <Setter Target="detailViewContentControl.Visibility" Value="Visible" />
-                        <Setter Target="detailViewContentControl.Width" Value="NaN" />
-                        <Setter Target="detailViewContentControl.(RelativePanel.AlignLeftWithPanel)" Value="True" />
+                        <Setter Target="PART_detailViewContentControl.Visibility" Value="Visible" />
+                        <Setter Target="PART_detailViewContentControl.Width" Value="NaN" />
+                        <Setter Target="PART_detailViewContentControl.(RelativePanel.AlignLeftWithPanel)" Value="True" />
 
-                        <Setter Target="masterViewContentControl.Visibility" Value="Collapsed" />
+                        <Setter Target="PART_masterViewContentControl.Visibility" Value="Collapsed" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         
-        <RelativePanel x:Name="relativePanelParent">
-            <ContentPresenter x:Name="masterViewContentControl" RelativePanel.AlignLeftWithPanel="True" 
+        <RelativePanel x:Name="PART_relativePanelParent">
+            <ContentPresenter x:Name="PART_masterViewContentControl" RelativePanel.AlignLeftWithPanel="True" 
                             VerticalContentAlignment="Stretch" VerticalAlignment="Stretch" Width="400" 
                             HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch"
                             Content="{Binding MasterViewPaneContent, ElementName=thisControl, UpdateSourceTrigger=PropertyChanged}"
-                            Height="{Binding ElementName=relativePanelParent, Path=ActualHeight}" />
+                            Height="{Binding ElementName=PART_relativePanelParent, Path=ActualHeight}" />
             
-            <ContentPresenter x:Name="detailViewContentControl" RelativePanel.AlignRightWithPanel="True" 
-                            RelativePanel.RightOf="masterViewContentControl" Width="NaN" 
+            <ContentPresenter x:Name="PART_detailViewContentControl" RelativePanel.AlignRightWithPanel="True" 
+                            RelativePanel.RightOf="PART_masterViewContentControl" Width="NaN" 
                             VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" 
                             HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch"
                             Content="{Binding DetailViewPaneContent, ElementName=thisControl, UpdateSourceTrigger=PropertyChanged}"
-                            Height="{Binding ElementName=relativePanelParent, Path=ActualHeight}" />
+                            Height="{Binding ElementName=PART_relativePanelParent, Path=ActualHeight}" />
         </RelativePanel>
     </Grid>
 </UserControl>
