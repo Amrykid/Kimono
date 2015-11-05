@@ -74,7 +74,8 @@ namespace Kimono.Controls
             {
                 if (PreviewItem != null)
                 {
-                    PreviewItem = null;
+                    if (NullifyPreviewItemWhenGoingToMasterView)
+                        PreviewItem = null;
 
                     //EvaluateLayout();
 
@@ -143,6 +144,18 @@ namespace Kimono.Controls
         {
             get { return GetValue(PreviewItemProperty); }
             set { SetValue(PreviewItemProperty, value); }
+        }
+
+        public static readonly DependencyProperty NullifyPreviewItemWhenGoingToMasterViewProperty = DependencyProperty.Register("NullifyPreviewItemWhenGoingToMasterView", typeof(bool),
+            typeof(MasterDetailViewControl), new PropertyMetadata(true, new PropertyChangedCallback((control, args) =>
+            {
+                (control as MasterDetailViewControl).EvaluateLayout();
+            })));
+
+        public bool NullifyPreviewItemWhenGoingToMasterView
+        {
+            get { return (bool)GetValue(NullifyPreviewItemWhenGoingToMasterViewProperty); }
+            set { SetValue(NullifyPreviewItemWhenGoingToMasterViewProperty, value); }
         }
     }
 }

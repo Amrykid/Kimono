@@ -113,14 +113,14 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controls\MasterDetailViewControl.xaml.cs">
+    <Compile Include="Controls\MasterDetailView\MasterDetailViewControl.xaml.cs">
       <DependentUpon>MasterDetailViewControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Properties\Kimono.rd.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Controls\MasterDetailViewControl.xaml">
+    <Page Include="Controls\MasterDetailView\MasterDetailViewControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
