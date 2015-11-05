@@ -13,6 +13,12 @@
     <Grid>
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
+                <VisualState x:Name="UnloadedState">
+                    <VisualState.Setters>
+                        <Setter Target="PART_ContentPresenter.Visibility" Value="Collapsed" />
+                    </VisualState.Setters>
+                </VisualState>
+                
                 <VisualState x:Name="LoadingState">
                     <VisualState.Setters>
                         <Setter Target="PART_ProgressRing.IsActive" Value="True" />
@@ -27,6 +33,7 @@
                 <VisualState x:Name="LoadedState">
                     <VisualState.Setters>
                         <Setter Target="PART_ProgressRing.IsActive" Value="False" />
+                        <Setter Target="PART_ContentPresenter.Visibility" Value="Visible" />
                     </VisualState.Setters>
                     <VisualState.Storyboard>
                         <Storyboard>
@@ -40,6 +47,6 @@
         <ProgressRing x:Name="PART_ProgressRing" IsActive="False" HorizontalAlignment="Center" VerticalAlignment="Center" Height="60" Width="60" />
 
         <ContentPresenter x:Name="PART_ContentPresenter" Content="{Binding LoadedContent, ElementName=thisControl, UpdateSourceTrigger=PropertyChanged}" 
-                          HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                          HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Visibility="Collapsed" />
     </Grid>
 </UserControl>
