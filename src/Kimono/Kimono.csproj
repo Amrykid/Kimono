@@ -116,11 +116,18 @@
     <Compile Include="Controls\MasterDetailView\MasterDetailViewControl.xaml.cs">
       <DependentUpon>MasterDetailViewControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\LoadingContentContainer\LoadingContentContainer.xaml.cs">
+      <DependentUpon>LoadingContentContainer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Properties\Kimono.rd.xml" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Controls\MasterDetailView\MasterDetailViewControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\LoadingContentContainer\LoadingContentContainer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
