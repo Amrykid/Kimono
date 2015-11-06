@@ -28,7 +28,7 @@ namespace Kimono.Controls
         }
 
         public static readonly DependencyProperty IsLoadingProperty = DependencyProperty.Register("IsLoading", typeof(bool),
-            typeof(LoadingContentContainer), new PropertyMetadata(true, new PropertyChangedCallback((control, args) =>
+            typeof(LoadingContentContainer), new PropertyMetadata(false, new PropertyChangedCallback((control, args) =>
             {
                 var container = control as LoadingContentContainer;
                 var args2 = args as DependencyPropertyChangedEventArgs;
