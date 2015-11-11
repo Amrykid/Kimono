@@ -81,6 +81,9 @@ namespace Kimono.Controls
 
                     VisualStateManager.GoToState(this, "OnePaneMasterVisualState", true);
 
+                    if (BackButtonVisibilityHinted != null)
+                        BackButtonVisibilityHinted(this, new BackButtonVisibilityHintedEventArgs(false));
+
                     e.Handled = true;
                 }
             }
@@ -103,13 +106,23 @@ namespace Kimono.Controls
                 isInOnePaneMode = false;
 
                 VisualStateManager.GoToState(this, "TwoPaneVisualState", true);
+
+                if (BackButtonVisibilityHinted != null)
+                    BackButtonVisibilityHinted(this, new BackButtonVisibilityHintedEventArgs(false));
             }
             else
             {
                 isInOnePaneMode = true;
 
                 if (!isOrientationChange)
-                    VisualStateManager.GoToState(this, (PreviewItem != null ? "OnePaneDetailVisualState" : "OnePaneMasterVisualState"), true);
+                {
+                    var onePaneModeState = (PreviewItem != null ? "OnePaneDetailVisualState" : "OnePaneMasterVisualState");
+
+                    VisualStateManager.GoToState(this, onePaneModeState, true);
+
+                    if (BackButtonVisibilityHinted != null)
+                        BackButtonVisibilityHinted(this, new BackButtonVisibilityHintedEventArgs(onePaneModeState == "OnePaneDetailVisualState"));
+                }
             }
 
             lastWindowHeight = height;
@@ -146,6 +159,7 @@ namespace Kimono.Controls
             set { SetValue(PreviewItemProperty, value); }
         }
 
+
         public static readonly DependencyProperty NullifyPreviewItemWhenGoingToMasterViewProperty = DependencyProperty.Register("NullifyPreviewItemWhenGoingToMasterView", typeof(bool),
             typeof(MasterDetailViewControl), new PropertyMetadata(true, new PropertyChangedCallback((control, args) =>
             {
@@ -157,5 +171,17 @@ namespace Kimono.Controls
             get { return (bool)GetValue(NullifyPreviewItemWhenGoingToMasterViewProperty); }
             set { SetValue(NullifyPreviewItemWhenGoingToMasterViewProperty, value); }
         }
+
+        public event EventHandler<BackButtonVisibilityHintedEventArgs> BackButtonVisibilityHinted;
+    }
+
+    public class BackButtonVisibilityHintedEventArgs : EventArgs
+    {
+        internal BackButtonVisibilityHintedEventArgs(bool shouldBeVisible)
+        {
+            BackButtonShouldBeVisible = shouldBeVisible;
+        }
+
+        public bool BackButtonShouldBeVisible { get; private set; }
     }
 }
