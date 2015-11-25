@@ -24,6 +24,7 @@ namespace Kimono.Controls
         private double lastWindowWidth = 0;
         private double lastWindowHeight = 0;
         private SystemNavigationManager navigationManager = null;
+        private string currentState = "";
 
         public MasterDetailViewControl()
         {
@@ -74,18 +75,30 @@ namespace Kimono.Controls
             {
                 if (PreviewItem != null)
                 {
-                    if (NullifyPreviewItemWhenGoingToMasterView)
-                        PreviewItem = null;
-
-                    //EvaluateLayout();
-
-                    VisualStateManager.GoToState(this, "OnePaneMasterVisualState", true);
-
-                    if (BackButtonVisibilityHinted != null)
-                        BackButtonVisibilityHinted(this, new BackButtonVisibilityHintedEventArgs(false));
+                    ShowMasterView();
 
                     e.Handled = true;
                 }
+            }
+        }
+
+        public void ShowMasterView()
+        {
+            if (isInOnePaneMode)
+            {
+                if (NullifyPreviewItemWhenGoingToMasterView)
+                    PreviewItem = null;
+
+                //EvaluateLayout();
+
+                lock (currentState)
+                {
+                    VisualStateManager.GoToState(this, "OnePaneMasterVisualState", true);
+                    currentState = "OnePaneMasterVisualState";
+                }
+
+                if (BackButtonVisibilityHinted != null)
+                    BackButtonVisibilityHinted(this, new BackButtonVisibilityHintedEventArgs(false));
             }
         }
 
@@ -101,11 +114,17 @@ namespace Kimono.Controls
              * 720 epx or wider (Available window width) = Side-by-Side (Two panes shown at one time)
              */
 
+
             if (width >= 720)
             {
                 isInOnePaneMode = false;
 
-                VisualStateManager.GoToState(this, "TwoPaneVisualState", true);
+                lock (currentState)
+                {
+                    VisualStateManager.GoToState(this, "TwoPaneVisualState", true);
+
+                    currentState = "TwoPaneVisualState";
+                }
 
                 if (BackButtonVisibilityHinted != null)
                     BackButtonVisibilityHinted(this, new BackButtonVisibilityHintedEventArgs(false));
@@ -118,12 +137,18 @@ namespace Kimono.Controls
                 {
                     var onePaneModeState = (PreviewItem != null ? "OnePaneDetailVisualState" : "OnePaneMasterVisualState");
 
-                    VisualStateManager.GoToState(this, onePaneModeState, true);
+                    lock (currentState)
+                    {
+                        VisualStateManager.GoToState(this, onePaneModeState, true);
+
+                        currentState = onePaneModeState;
+                    }
 
                     if (BackButtonVisibilityHinted != null)
                         BackButtonVisibilityHinted(this, new BackButtonVisibilityHintedEventArgs(onePaneModeState == "OnePaneDetailVisualState"));
                 }
             }
+
 
             lastWindowHeight = height;
             lastWindowWidth = width;
@@ -171,6 +196,8 @@ namespace Kimono.Controls
             get { return (bool)GetValue(NullifyPreviewItemWhenGoingToMasterViewProperty); }
             set { SetValue(NullifyPreviewItemWhenGoingToMasterViewProperty, value); }
         }
+
+        public bool IsShowingDetailView { get { return currentState == "TwoPaneVisualState" || currentState == "OnePaneDetailVisualState"; } }
 
         public event EventHandler<BackButtonVisibilityHintedEventArgs> BackButtonVisibilityHinted;
     }
