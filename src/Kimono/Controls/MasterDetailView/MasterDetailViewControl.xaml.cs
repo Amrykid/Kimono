@@ -172,12 +172,16 @@ namespace Kimono.Controls
             set { SetValue(DetailViewPaneContentProperty, value); }
         }
 
+
         public static readonly DependencyProperty PreviewItemProperty = DependencyProperty.Register("PreviewItem", typeof(object),
             typeof(MasterDetailViewControl), new PropertyMetadata(null, new PropertyChangedCallback((control, args) =>
             {
                 (control as MasterDetailViewControl).EvaluateLayout();
             })));
 
+        /// <summary>
+        /// The item that the preview pane is showing. This MUST be connected to a TwoWay binding.
+        /// </summary>
         public object PreviewItem
         {
             get { return GetValue(PreviewItemProperty); }
