@@ -29,7 +29,7 @@
                         <Setter Target="PART_masterViewContentControl.Visibility" Value="Visible" />
                         <Setter Target="PART_masterViewContentControl.Width" Value="NaN" />
                         <Setter Target="PART_masterViewContentControl.(RelativePanel.AlignLeftWithPanel)" Value="True" />
-                        
+
                         <Setter Target="PART_detailViewContentControl.Visibility" Value="Collapsed" />
                     </VisualState.Setters>
                 </VisualState>
@@ -46,13 +46,13 @@
         </VisualStateManager.VisualStateGroups>
         
         <RelativePanel x:Name="PART_relativePanelParent">
-            <ContentPresenter x:Name="PART_masterViewContentControl" RelativePanel.AlignLeftWithPanel="True" 
+            <ContentControl x:Name="PART_masterViewContentControl" RelativePanel.AlignLeftWithPanel="True" 
                             VerticalContentAlignment="Stretch" VerticalAlignment="Stretch" Width="400" 
                             HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch"
                             Content="{Binding MasterViewPaneContent, ElementName=thisControl, UpdateSourceTrigger=PropertyChanged}"
                             Height="{Binding ElementName=PART_relativePanelParent, Path=ActualHeight}" />
             
-            <ContentPresenter x:Name="PART_detailViewContentControl" RelativePanel.AlignRightWithPanel="True" 
+            <ContentControl x:Name="PART_detailViewContentControl" RelativePanel.AlignRightWithPanel="True" 
                             RelativePanel.RightOf="PART_masterViewContentControl" Width="NaN" 
                             VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" 
                             HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch"

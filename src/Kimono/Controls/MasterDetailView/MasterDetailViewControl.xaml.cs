@@ -145,7 +145,13 @@ namespace Kimono.Controls
                     }
 
                     if (BackButtonVisibilityHinted != null)
-                        BackButtonVisibilityHinted(this, new BackButtonVisibilityHintedEventArgs(onePaneModeState == "OnePaneDetailVisualState"));
+                        BackButtonVisibilityHinted(this,
+                            new BackButtonVisibilityHintedEventArgs(onePaneModeState == "OnePaneDetailVisualState"));
+
+                    if (onePaneModeState == "OnePaneDetailVisualState")
+                    {
+                        //PART_detailViewScrollViewer.ScrollToVerticalOffset(0);
+                    }
                 }
             }
 
