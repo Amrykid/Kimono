@@ -24,7 +24,7 @@ namespace Kimono.Controls
         private double lastWindowWidth = 0;
         private double lastWindowHeight = 0;
         private SystemNavigationManager navigationManager = null;
-        private string currentState = "";
+        private volatile string currentState = "";
 
         public MasterDetailViewControl()
         {
