@@ -20,7 +20,7 @@ namespace Kimono.Controls
 {
     public sealed partial class MasterDetailViewControl : UserControl
     {
-        private bool isInOnePaneMode = false;
+        private volatile bool isInOnePaneMode = false;
         private double lastWindowWidth = 0;
         private double lastWindowHeight = 0;
         private SystemNavigationManager navigationManager = null;
@@ -40,7 +40,7 @@ namespace Kimono.Controls
             this.DataContextChanged += MasterDetailViewControl_DataContextChanged;
 
             navigationManager = SystemNavigationManager.GetForCurrentView();
-            navigationManager.BackRequested += NavigationManager_BackRequested;
+            //navigationManager.BackRequested += NavigationManager_BackRequested;
 
             Window.Current.SizeChanged += Current_SizeChanged;
 
@@ -65,7 +65,7 @@ namespace Kimono.Controls
             this.Unloaded -= MasterDetailViewControl_Unloaded;
 
             this.DataContextChanged -= MasterDetailViewControl_DataContextChanged;
-            navigationManager.BackRequested -= NavigationManager_BackRequested;
+            //navigationManager.BackRequested -= NavigationManager_BackRequested;
             Window.Current.SizeChanged -= Current_SizeChanged;
         }
 
