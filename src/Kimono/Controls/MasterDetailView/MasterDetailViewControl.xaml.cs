@@ -84,11 +84,11 @@ namespace Kimono.Controls
 
         public void ShowMasterView()
         {
+            if (NullifyPreviewItemWhenGoingToMasterView)
+                PreviewItem = null;
+
             if (isInOnePaneMode)
             {
-                if (NullifyPreviewItemWhenGoingToMasterView)
-                    PreviewItem = null;
-
                 //EvaluateLayout();
 
                 lock (currentState)
@@ -127,7 +127,7 @@ namespace Kimono.Controls
                 }
 
                 if (BackButtonVisibilityHinted != null)
-                    BackButtonVisibilityHinted(this, new BackButtonVisibilityHintedEventArgs(false));
+                    BackButtonVisibilityHinted(this, new BackButtonVisibilityHintedEventArgs(PreviewItem != null));
             }
             else
             {
@@ -207,7 +207,13 @@ namespace Kimono.Controls
             set { SetValue(NullifyPreviewItemWhenGoingToMasterViewProperty, value); }
         }
 
-        public bool IsShowingDetailView { get { return currentState == "TwoPaneVisualState" || currentState == "OnePaneDetailVisualState"; } }
+        public bool IsShowingDetailView()
+        {
+            if (currentState == "TwoPaneVisualState")
+                return PreviewItem != null;
+            else
+                return currentState == "OnePaneDetailVisualState";
+        }
 
         public event EventHandler<BackButtonVisibilityHintedEventArgs> BackButtonVisibilityHinted;
     }
