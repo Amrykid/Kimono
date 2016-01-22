@@ -30,4 +30,10 @@
             </kimono:MasterDetailViewControl.DetailViewPaneContent>
         </kimono:MasterDetailViewControl>
     </Grid>
+
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Content="Snack" Icon="Memo" Click="AppBarButton_Click" />
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>

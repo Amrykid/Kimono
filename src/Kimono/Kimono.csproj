@@ -119,6 +119,10 @@
     <Compile Include="Controls\LoadingContentContainer\LoadingContentContainer.xaml.cs">
       <DependentUpon>LoadingContentContainer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\SnackBar\SnackBarManager.cs" />
+    <Compile Include="Controls\SnackBar\SnackBarMessage.xaml.cs">
+      <DependentUpon>SnackBarMessage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Properties\Kimono.rd.xml" />
   </ItemGroup>
@@ -128,6 +132,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\LoadingContentContainer\LoadingContentContainer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\SnackBar\SnackBarMessage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

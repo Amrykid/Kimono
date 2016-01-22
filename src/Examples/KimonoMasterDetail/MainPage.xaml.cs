@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Kimono.Controls.SnackBar;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Core;
@@ -31,6 +33,15 @@ namespace KimonoMasterDetail
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
 
             this.DataContext = new SomeViewModel();
+
+            this.Loaded += MainPage_Loaded;
+        }
+
+        private async void MainPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            await Task.Delay(2000);
+
+            await SnackBarManager.ShowMessageAsync("Hi there!", 5000);
         }
 
         public class SomeViewModel: INotifyPropertyChanged
@@ -54,6 +65,11 @@ namespace KimonoMasterDetail
             }
 
             public event PropertyChangedEventHandler PropertyChanged;
+        }
+
+        private async void AppBarButton_Click(object sender, RoutedEventArgs e)
+        {
+            await SnackBarManager.ShowMessageAsync("Snack!", 5000);
         }
     }
 }
