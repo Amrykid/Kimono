@@ -73,19 +73,16 @@ namespace Kimono.Controls
         {
             if (isInOnePaneMode)
             {
-                if (PreviewItem != null)
-                {
-                    ShowMasterView();
+                ShowMasterView();
 
-                    e.Handled = true;
-                }
+                e.Handled = true;
+
             }
         }
 
         public void ShowMasterView()
         {
-            if (NullifyPreviewItemWhenGoingToMasterView)
-                PreviewItem = null;
+            PreviewItem = null;
 
             if (isInOnePaneMode)
             {
@@ -96,9 +93,28 @@ namespace Kimono.Controls
                     VisualStateManager.GoToState(this, "OnePaneMasterVisualState", true);
                     currentState = "OnePaneMasterVisualState";
                 }
+            }
+
+            if (BackButtonVisibilityHinted != null)
+                BackButtonVisibilityHinted(this, new BackButtonVisibilityHintedEventArgs(false));
+        }
+
+        public void ShowDetailView(object previewItem)
+        {
+            if (isInOnePaneMode)
+            {
+                //EvaluateLayout();
+
+                PreviewItem = previewItem;
+
+                lock (currentState)
+                {
+                    VisualStateManager.GoToState(this, "OnePaneDetailVisualState", true);
+                    currentState = "OnePaneDetailVisualState";
+                }
 
                 if (BackButtonVisibilityHinted != null)
-                    BackButtonVisibilityHinted(this, new BackButtonVisibilityHintedEventArgs(false));
+                    BackButtonVisibilityHinted(this, new BackButtonVisibilityHintedEventArgs(true));
             }
         }
 
@@ -178,33 +194,13 @@ namespace Kimono.Controls
             set { SetValue(DetailViewPaneContentProperty, value); }
         }
 
-
         public static readonly DependencyProperty PreviewItemProperty = DependencyProperty.Register("PreviewItem", typeof(object),
-            typeof(MasterDetailViewControl), new PropertyMetadata(null, new PropertyChangedCallback((control, args) =>
-            {
-                (control as MasterDetailViewControl).EvaluateLayout();
-            })));
+            typeof(MasterDetailViewControl), new PropertyMetadata(null));
 
-        /// <summary>
-        /// The item that the preview pane is showing. This MUST be connected to a TwoWay binding.
-        /// </summary>
         public object PreviewItem
         {
             get { return GetValue(PreviewItemProperty); }
-            set { SetValue(PreviewItemProperty, value); }
-        }
-
-
-        public static readonly DependencyProperty NullifyPreviewItemWhenGoingToMasterViewProperty = DependencyProperty.Register("NullifyPreviewItemWhenGoingToMasterView", typeof(bool),
-            typeof(MasterDetailViewControl), new PropertyMetadata(true, new PropertyChangedCallback((control, args) =>
-            {
-                (control as MasterDetailViewControl).EvaluateLayout();
-            })));
-
-        public bool NullifyPreviewItemWhenGoingToMasterView
-        {
-            get { return (bool)GetValue(NullifyPreviewItemWhenGoingToMasterViewProperty); }
-            set { SetValue(NullifyPreviewItemWhenGoingToMasterViewProperty, value); }
+            private set { SetValue(PreviewItemProperty, value); }
         }
 
         public bool IsShowingDetailView()
