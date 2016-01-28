@@ -25,11 +25,11 @@ namespace Kimono.Controls
         private double lastWindowHeight = 0;
         private SystemNavigationManager navigationManager = null;
         private volatile string currentState = "";
+        
 
         public MasterDetailViewControl()
         {
             this.InitializeComponent();
-
             this.Loaded += MasterDetailViewControl_Loaded;
         }
 
@@ -90,8 +90,15 @@ namespace Kimono.Controls
 
                 lock (currentState)
                 {
-                    VisualStateManager.GoToState(this, "OnePaneMasterVisualState", true);
-                    currentState = "OnePaneMasterVisualState";
+                    VisualStateManager.GoToState(this, OnePaneMasterVisualState.Name, true);
+
+                    if (currentState != OnePaneMasterVisualState.Name)
+                    {
+                        currentState = OnePaneMasterVisualState.Name;
+
+                        if (MasterViewShown != null)
+                            MasterViewShown(this, EventArgs.Empty);
+                    }
                 }
             }
 
@@ -109,13 +116,20 @@ namespace Kimono.Controls
 
                 lock (currentState)
                 {
-                    VisualStateManager.GoToState(this, "OnePaneDetailVisualState", true);
-                    currentState = "OnePaneDetailVisualState";
-                }
+                    VisualStateManager.GoToState(this, OnePaneDetailVisualState.Name, true);
 
-                if (BackButtonVisibilityHinted != null)
-                    BackButtonVisibilityHinted(this, new BackButtonVisibilityHintedEventArgs(true));
+                    if (currentState != OnePaneDetailVisualState.Name)
+                    {
+                        currentState = OnePaneDetailVisualState.Name;
+
+                        if (DetailViewShown != null)
+                            DetailViewShown(this, EventArgs.Empty);
+                    }
+                }
             }
+
+            if (BackButtonVisibilityHinted != null)
+                BackButtonVisibilityHinted(this, new BackButtonVisibilityHintedEventArgs(true));
         }
 
         private void EvaluateLayout()
@@ -137,9 +151,15 @@ namespace Kimono.Controls
 
                 lock (currentState)
                 {
-                    VisualStateManager.GoToState(this, "TwoPaneVisualState", true);
+                    VisualStateManager.GoToState(this, TwoPaneVisualState.Name, true);
 
-                    currentState = "TwoPaneVisualState";
+                    if (currentState != TwoPaneVisualState.Name)
+                    {
+                        currentState = TwoPaneVisualState.Name;
+
+                        if (MasterViewShown != null)
+                            MasterViewShown(this, EventArgs.Empty);
+                    }
                 }
 
                 if (BackButtonVisibilityHinted != null)
@@ -151,20 +171,31 @@ namespace Kimono.Controls
 
                 if (!isOrientationChange)
                 {
-                    var onePaneModeState = (PreviewItem != null ? "OnePaneDetailVisualState" : "OnePaneMasterVisualState");
+                    var onePaneModeState = (PreviewItem != null ? OnePaneDetailVisualState.Name : OnePaneMasterVisualState.Name);
 
                     lock (currentState)
                     {
                         VisualStateManager.GoToState(this, onePaneModeState, true);
 
+                        if (currentState != OnePaneMasterVisualState.Name && onePaneModeState == OnePaneMasterVisualState.Name)
+                        {
+                            if (MasterViewShown != null)
+                                MasterViewShown(this, EventArgs.Empty);
+                        }
+                        else if (currentState != OnePaneDetailVisualState.Name && onePaneModeState == OnePaneDetailVisualState.Name)
+                        {
+                            if (DetailViewShown != null)
+                                DetailViewShown(this, EventArgs.Empty);
+                        }
+                            
                         currentState = onePaneModeState;
                     }
 
                     if (BackButtonVisibilityHinted != null)
                         BackButtonVisibilityHinted(this,
-                            new BackButtonVisibilityHintedEventArgs(onePaneModeState == "OnePaneDetailVisualState"));
+                            new BackButtonVisibilityHintedEventArgs(onePaneModeState == OnePaneDetailVisualState.Name));
 
-                    if (onePaneModeState == "OnePaneDetailVisualState")
+                    if (onePaneModeState == OnePaneDetailVisualState.Name)
                     {
                         //PART_detailViewScrollViewer.ScrollToVerticalOffset(0);
                     }
@@ -206,12 +237,15 @@ namespace Kimono.Controls
         public bool IsShowingDetailView()
         {
             if (currentState == "TwoPaneVisualState")
-                return PreviewItem != null;
+                return true;
             else
-                return currentState == "OnePaneDetailVisualState";
+                return currentState == OnePaneDetailVisualState.Name;
         }
 
         public event EventHandler<BackButtonVisibilityHintedEventArgs> BackButtonVisibilityHinted;
+
+        public event EventHandler MasterViewShown;
+        public event EventHandler DetailViewShown;
     }
 
     public class BackButtonVisibilityHintedEventArgs : EventArgs
