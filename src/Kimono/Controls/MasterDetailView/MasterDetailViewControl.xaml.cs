@@ -115,11 +115,11 @@ namespace Kimono.Controls
 
         public void ShowDetailView(object previewItem)
         {
+            PreviewItem = previewItem;
+
             if (isInOnePaneMode)
             {
                 //EvaluateLayout();
-
-                PreviewItem = previewItem;
 
                 lock (currentState)
                 {
