@@ -212,6 +212,8 @@ namespace Kimono.Controls
 
             lastWindowHeight = height;
             lastWindowWidth = width;
+
+            this.InvalidateMeasure();
         }
 
         public static readonly DependencyProperty MasterViewPaneContentProperty = DependencyProperty.Register("MasterViewPaneContent", typeof(FrameworkElement),

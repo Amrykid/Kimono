@@ -10,7 +10,7 @@
     d:DesignHeight="1080"
     d:DesignWidth="1920">
 
-    <Grid x:Name="LayoutRoot">
+    <Grid x:Name="LayoutRoot" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
                 <VisualState x:Name="TwoPaneVisualState">
@@ -45,19 +45,19 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         
-        <RelativePanel x:Name="PART_relativePanelParent">
+        <RelativePanel x:Name="PART_relativePanelParent" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
             <ContentControl x:Name="PART_masterViewContentControl" RelativePanel.AlignLeftWithPanel="True" 
                             VerticalContentAlignment="Stretch" VerticalAlignment="Stretch" Width="400" 
                             HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch"
                             Content="{Binding MasterViewPaneContent, ElementName=thisControl, UpdateSourceTrigger=PropertyChanged}"
-                            Height="{Binding ElementName=PART_relativePanelParent, Path=ActualHeight}" />
+                            Height="NaN" />
             
             <ContentControl x:Name="PART_detailViewContentControl" RelativePanel.AlignRightWithPanel="True" 
-                            RelativePanel.RightOf="PART_masterViewContentControl" Width="NaN" 
+                            RelativePanel.RightOf="PART_masterViewContentControl" Width="NaN"
                             VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" 
                             HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch"
                             Content="{Binding DetailViewPaneContent, ElementName=thisControl, UpdateSourceTrigger=PropertyChanged}"
-                            Height="{Binding ElementName=PART_relativePanelParent, Path=ActualHeight}" />
+                            Height="NaN" />
         </RelativePanel>
     </Grid>
 </UserControl>
