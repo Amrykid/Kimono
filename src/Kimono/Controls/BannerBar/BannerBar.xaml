@@ -1,0 +1,24 @@
+﻿<UserControl
+    x:Class="Kimono.Controls.BannerBar"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Kimono.Controls.BannerBar"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    Background="{ThemeResource SystemControlBackgroundAccentBrush}"
+    Foreground="White"
+    x:Name="Self"
+    Padding="10">
+
+    <Grid Background="{Binding ElementName=Self, Path=Background, UpdateSourceTrigger=PropertyChanged}"
+          Padding="{Binding ElementName=Self, Path=Padding, UpdateSourceTrigger=PropertyChanged}">
+        <TextBlock Text="{Binding ElementName=Self, Path=BannerText, UpdateSourceTrigger=PropertyChanged}" FontSize="17" 
+                   FontWeight="SemiBold" 
+                   TextAlignment="Center" 
+                   HorizontalAlignment="Stretch"
+                   VerticalAlignment="Stretch" />
+    </Grid>
+</UserControl>
