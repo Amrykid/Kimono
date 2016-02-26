@@ -36,7 +36,10 @@ namespace Kimono.Controls.SnackBar
             Func<double> getHorizonalPos = () =>
             {
                 double val = 0.0;
-                if (Window.Current.Bounds.Width <= 720)
+
+                if (Window.Current.Bounds.Width <= 360)
+                    val = Window.Current.CoreWindow.Bounds.Width * (0.5 / 5.0);
+                else if (Window.Current.Bounds.Width <= 720)
                     val = Window.Current.CoreWindow.Bounds.Width * (1.0 / 5.0);
                 else if (Window.Current.Bounds.Width <= 1080)
                     val = Window.Current.CoreWindow.Bounds.Width * (1.5 / 5.0);
@@ -71,7 +74,11 @@ namespace Kimono.Controls.SnackBar
 
             popup.IsOpen = true;
 
-            await Task.Delay(msToBeVisible);
+            await Task.Delay(5);
+
+            popup.HorizontalOffset = getHorizonalPos();
+
+            await Task.Delay(msToBeVisible - 5);
 
             Window.Current.SizeChanged -= handler;
 
