@@ -35,10 +35,18 @@ namespace Kimono.Controls.SnackBar
             double heightPercentage = .85;
             Func<double> getHorizonalPos = () =>
             {
-                var halfWidth = (Window.Current.Bounds.Width * .5);
-                var halfPopupWidth = msgControl.ActualWidth / 2.0;
+                double val = 0.0;
+                if (Window.Current.Bounds.Width <= 720)
+                    val = Window.Current.CoreWindow.Bounds.Width * (1.0 / 5.0);
+                else if (Window.Current.Bounds.Width <= 1080)
+                    val = Window.Current.CoreWindow.Bounds.Width * (1.5 / 5.0);
+                else
+                    val = Window.Current.CoreWindow.Bounds.Width * (2.0 / 5.0);
 
-                return halfWidth - halfPopupWidth;
+                if (popup.ActualWidth != 0.0)
+                    val -= (popup.ActualWidth / 2.0);
+
+                return val;
             };
 
             WindowSizeChangedEventHandler handler = null;
@@ -55,10 +63,11 @@ namespace Kimono.Controls.SnackBar
                 rootElement.Children.Add(popup);
             }
 
-            popup.IsOpen = true;
-            popup.HorizontalOffset = getHorizonalPos() - (MeasureString(msgControl.Text, new Size(Window.Current.Bounds.Width, Window.Current.Bounds.Height), msgControl.FontSize).Width * 3.5);
+            //popup.IsOpen = true;
+            //popup.HorizontalOffset = getHorizonalPos() - (MeasureString(msgControl.Text, new Size(Window.Current.Bounds.Width, Window.Current.Bounds.Height), msgControl.FontSize).Width * 3.5);
             popup.VerticalOffset = Window.Current.Bounds.Height * heightPercentage;
-            popup.IsOpen = false;
+            popup.HorizontalOffset = getHorizonalPos();
+            //popup.IsOpen = false;
 
             popup.IsOpen = true;
 
