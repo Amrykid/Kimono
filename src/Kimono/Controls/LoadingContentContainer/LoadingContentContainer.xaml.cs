@@ -49,12 +49,12 @@ namespace Kimono.Controls
             set { SetValue(IsLoadingProperty, value); }
         }
 
-        private void GoToLoadingState()
+        public void GoToLoadingState()
         {
             VisualStateManager.GoToState(this, "LoadingState", true);
         }
 
-        private void GoToLoadedState()
+        public void GoToLoadedState()
         {
             VisualStateManager.GoToState(this, "LoadedState", true);
         }
