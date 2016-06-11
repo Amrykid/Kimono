@@ -25,7 +25,7 @@ namespace Kimono.Controls
         private double lastWindowHeight = 0;
         private SystemNavigationManager navigationManager = null;
         private volatile string currentState = "";
-        
+
 
         public MasterDetailViewControl()
         {
@@ -134,6 +134,16 @@ namespace Kimono.Controls
                     }
                 }
             }
+            else
+            {
+                lock (currentState)
+                {
+                    currentState = TwoPaneVisualState.Name;
+
+                    if (DetailViewShown != null)
+                        DetailViewShown(this, new MasterDetailViewControlViewShownEventArgs() { RequestedBy = ViewShownRequestedByType.User, ViewShown = currentState });
+                }
+            }
 
             if (BackButtonVisibilityHinted != null)
                 BackButtonVisibilityHinted(this, new MasterDetailViewControlBackButtonVisibilityHintedEventArgs(true));
@@ -194,7 +204,7 @@ namespace Kimono.Controls
                             if (DetailViewShown != null)
                                 DetailViewShown(this, new MasterDetailViewControlViewShownEventArgs() { RequestedBy = ViewShownRequestedByType.Control, ViewShown = onePaneModeState });
                         }
-                            
+
                         currentState = onePaneModeState;
                     }
 
@@ -243,9 +253,11 @@ namespace Kimono.Controls
             private set { SetValue(PreviewItemProperty, value); }
         }
 
+        public bool IsInTwoPaneMode { get { return currentState == TwoPaneVisualState.Name; } }
+
         public bool IsShowingDetailView()
         {
-            if (currentState == "TwoPaneVisualState")
+            if (currentState == TwoPaneVisualState.Name)
                 return true;
             else
                 return currentState == OnePaneDetailVisualState.Name;
@@ -267,7 +279,7 @@ namespace Kimono.Controls
         public bool BackButtonShouldBeVisible { get; private set; }
     }
 
-    public class MasterDetailViewControlViewShownEventArgs: EventArgs
+    public class MasterDetailViewControlViewShownEventArgs : EventArgs
     {
         public ViewShownRequestedByType RequestedBy { get; internal set; }
         public string ViewShown { get; internal set; }

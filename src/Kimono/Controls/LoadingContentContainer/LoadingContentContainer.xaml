@@ -46,7 +46,7 @@
         
         <ProgressRing x:Name="PART_ProgressRing" IsActive="False" HorizontalAlignment="Center" VerticalAlignment="Center" Height="60" Width="60" />
 
-        <ContentPresenter x:Name="PART_ContentPresenter" Content="{Binding LoadedContent, ElementName=thisControl, UpdateSourceTrigger=PropertyChanged}" 
+        <ContentControl x:Name="PART_ContentPresenter" Content="{Binding LoadedContent, ElementName=thisControl, UpdateSourceTrigger=PropertyChanged}" 
                           HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Visibility="Collapsed" />
     </Grid>
 </UserControl>
