@@ -33,7 +33,7 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
 
-        <Grid Background="Transparent" x:Name="ViewBoxRow" Grid.Row="0" />
+        <Grid Background="Transparent" x:Name="ViewBoxRow" Grid.Row="0" IsHitTestVisible="False" />
 
         <Grid x:Name="InfoBoxRow" Grid.Row="1" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
             <Grid.RowDefinitions>
