@@ -1,0 +1,54 @@
+﻿<UserControl
+    x:Class="Kimono.Controls.GripperPanel"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Kimono.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    x:Name="thisControl"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+
+    <Grid>
+       <Grid.RowDefinitions>
+            <RowDefinition x:Name="ViewBoxRowDef" Height="*" />
+            <RowDefinition x:Name="InfoBoxRowDef" Height=".4*" />
+        </Grid.RowDefinitions>
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="InfoBoxCollapsedState">
+                    <VisualState.Setters>
+                        <Setter Target="ViewBoxRowDef.Height" Value="*" />
+                        <Setter Target="InfoBoxRowDef.Height" Value=".4*" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="InfoBoxExpandedState">
+                    <VisualState.Setters>
+                        <Setter Target="ViewBoxRowDef.Height" Value="0" />
+                        <Setter Target="InfoBoxRowDef.Height" Value="*" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+        <Grid Background="Transparent" x:Name="ViewBoxRow" Grid.Row="0" />
+
+        <Grid x:Name="InfoBoxRow" Grid.Row="1" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Button Grid.Row="0" x:Name="GripperNub" Background="{ThemeResource SystemControlHighlightListAccentLowBrush}" HorizontalAlignment="Stretch" Click="GripperNub_Click" Margin="0">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Rectangle Height="2" Width="20" Margin="0,1,0,1" Fill="White" />
+                    <Rectangle Height="2" Width="20" Margin="0,1,0,1" Fill="White" />
+                </StackPanel>
+            </Button>
+            
+            <ContentPresenter Content="{Binding ElementName=thisControl,Path=PanelContent, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" />
+        </Grid>
+    </Grid>
+</UserControl>
