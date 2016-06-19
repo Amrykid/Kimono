@@ -27,7 +27,8 @@ namespace Kimono.Controls
             IsExpanded = false;
         }
 
-        public bool IsExpanded { get; private set; }
+        public static readonly DependencyProperty IsExpandedProperty = DependencyProperty.Register("IsExpanded", typeof(bool), typeof(GripperPanel), new PropertyMetadata(false));
+        public bool IsExpanded { get { return (bool)GetValue(IsExpandedProperty); } private set { SetValue(IsExpandedProperty, value); } }
 
         private void GripperNub_Click(object sender, RoutedEventArgs e)
         {
