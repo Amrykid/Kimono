@@ -27,8 +27,21 @@ namespace Kimono.Controls
             IsExpanded = false;
         }
 
-        public static readonly DependencyProperty IsExpandedProperty = DependencyProperty.Register("IsExpanded", typeof(bool), typeof(GripperPanel), new PropertyMetadata(false));
+        public static readonly DependencyProperty IsExpandedProperty = DependencyProperty.Register("IsExpanded", typeof(bool),
+            typeof(GripperPanel), new PropertyMetadata(false));
         public bool IsExpanded { get { return (bool)GetValue(IsExpandedProperty); } private set { SetValue(IsExpandedProperty, value); } }
+
+        public static readonly DependencyProperty CollapsedHeightProperty = DependencyProperty.Register("CollapsedHeight", typeof(GridLength), typeof(GripperPanel),
+            new PropertyMetadata(new GridLength(0.4, GridUnitType.Star), new PropertyChangedCallback((DependencyObject s, DependencyPropertyChangedEventArgs e) =>
+            {
+                if (((GridLength)e.NewValue).Value < ((GripperPanel)s).GripperNub.ActualHeight)
+                    throw new ArgumentOutOfRangeException();
+
+                if (!((GripperPanel)s).IsExpanded)
+                    ((GripperPanel)s).InfoBoxRowDef.Height = (GridLength)e.NewValue;
+
+            })));
+        public GridLength CollapsedHeight { get { return (GridLength)GetValue(CollapsedHeightProperty); } set { SetValue(CollapsedHeightProperty, value); } }
 
         private void GripperNub_Click(object sender, RoutedEventArgs e)
         {
@@ -45,11 +58,18 @@ namespace Kimono.Controls
         }
 
 
-        public static readonly DependencyProperty PanelContentProperty = DependencyProperty.Register("PanelContent", typeof(object), typeof(GripperPanel), new PropertyMetadata(null));
+        public static readonly DependencyProperty PanelContentProperty = DependencyProperty.Register("PanelContent", typeof(object),
+            typeof(GripperPanel), new PropertyMetadata(null));
         public object PanelContent
         {
             get { return GetValue(PanelContentProperty); }
             set { SetValue(PanelContentProperty, value); }
+        }
+
+        private void VisualStateGroup_CurrentStateChanged(object sender, VisualStateChangedEventArgs e)
+        {
+            if (e.NewState == InfoBoxCollapsedState)
+                InfoBoxRowDef.Height = CollapsedHeight;
         }
     }
 }

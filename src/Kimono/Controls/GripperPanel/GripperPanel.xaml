@@ -17,11 +17,11 @@
         </Grid.RowDefinitions>
 
         <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup>
+            <VisualStateGroup CurrentStateChanged="VisualStateGroup_CurrentStateChanged">
                 <VisualState x:Name="InfoBoxCollapsedState">
                     <VisualState.Setters>
                         <Setter Target="ViewBoxRowDef.Height" Value="*" />
-                        <Setter Target="InfoBoxRowDef.Height" Value=".4*" />
+                        <!--<Setter Target="InfoBoxRowDef.Height" Value=".4*" this is now set in code behind />-->
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="InfoBoxExpandedState">
