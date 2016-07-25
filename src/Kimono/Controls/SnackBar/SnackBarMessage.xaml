@@ -14,7 +14,7 @@
     x:Name="control"
     Opacity=".8"
     Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource SystemControlHighlightListAccentLowBrush}">
 
     <UserControl.Transitions>
         <TransitionCollection>
@@ -23,9 +23,7 @@
     </UserControl.Transitions>
 
     <Grid Background="{Binding ElementName=control, Path=Background, UpdateSourceTrigger=PropertyChanged}" 
-          CornerRadius="1" 
-          BorderBrush="{Binding ElementName=control, Path=Foreground, UpdateSourceTrigger=PropertyChanged}" 
-          BorderThickness="1" Padding="20 10">
+          Padding="20 10">
         <TextBlock x:Name="PART_MessageBlock" Foreground="{Binding ElementName=control, Path=Foreground, UpdateSourceTrigger=PropertyChanged}"
                    HorizontalAlignment="Center" VerticalAlignment="Center" />
     </Grid>

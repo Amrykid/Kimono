@@ -29,5 +29,10 @@ namespace Kimono.Controls.SnackBar
             get { return PART_MessageBlock.Text; }
             set { PART_MessageBlock.Text = value; }
         }
+
+        public int TimeToShow { get; internal set; }
+
+        //Inception
+        internal SnackBarMessage NextSnackBarMessage { get; set; }
     }
 }
