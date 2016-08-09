@@ -57,6 +57,17 @@ namespace Kimono.Controls
             }
         }
 
+        public void Retract()
+        {
+            VisualStateManager.GoToState(this, InfoBoxCollapsedState.Name, true);
+            IsExpanded = false;
+        }
+
+        public void Expand()
+        {
+            VisualStateManager.GoToState(this, InfoBoxExpandedState.Name, true);
+            IsExpanded = true;
+        }
 
         public static readonly DependencyProperty PanelContentProperty = DependencyProperty.Register("PanelContent", typeof(object),
             typeof(GripperPanel), new PropertyMetadata(null));
