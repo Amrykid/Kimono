@@ -24,7 +24,13 @@
 
     <Grid Background="{Binding ElementName=control, Path=Background, UpdateSourceTrigger=PropertyChanged}" 
           Padding="20 10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
         <TextBlock x:Name="PART_MessageBlock" Foreground="{Binding ElementName=control, Path=Foreground, UpdateSourceTrigger=PropertyChanged}"
-                   HorizontalAlignment="Center" VerticalAlignment="Center" />
+                   Grid.Column="0" VerticalAlignment="Center" />
+
+        <Button Visibility="Collapsed" x:Name="PART_CommandButton" Grid.Column="1" />
     </Grid>
 </UserControl>

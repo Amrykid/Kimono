@@ -28,6 +28,20 @@ namespace Kimono.Controls.SnackBar
             await DoPopupAsync(msgControl);
         }
 
+        public async Task ShowMessageWithCallbackAsync(string message, string buttonText, Action<SnackBarMessage> callback, int msToBeVisible = 10000)
+        {
+            SnackBarMessage msgControl = new SnackBarMessage();
+            msgControl.Text = message;
+            msgControl.TimeToShow = msToBeVisible;
+
+            //too lazy for dependency properties
+            msgControl.ButtonVisibility = Visibility.Visible;
+            msgControl.ButtonText = buttonText;
+            msgControl.ButtonCallback = callback;
+
+            await DoPopupAsync(msgControl);
+        }
+
         private async Task DoPopupAsync(SnackBarMessage msgControl)
         {
             if (desiredSnackBarAreaGrid.Children.Any(x => x is SnackBarMessage))

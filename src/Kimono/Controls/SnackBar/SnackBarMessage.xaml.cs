@@ -32,6 +32,20 @@ namespace Kimono.Controls.SnackBar
 
         public int TimeToShow { get; internal set; }
 
+        public Action<SnackBarMessage> ButtonCallback { get; internal set; }
+
+        public string ButtonText
+        {
+            get { return PART_CommandButton.Content as string; }
+            set { PART_CommandButton.Content = value; }
+        }
+
+        public Visibility ButtonVisibility
+        {
+            get { return PART_CommandButton.Visibility; }
+            set { PART_CommandButton.Visibility = value; }
+        }
+
         //Inception
         internal SnackBarMessage NextSnackBarMessage { get; set; }
     }
