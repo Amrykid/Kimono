@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -48,5 +49,24 @@ namespace Kimono.Controls.SnackBar
 
         //Inception
         internal SnackBarMessage NextSnackBarMessage { get; set; }
+
+        internal Task WaitForButtonClickAsync()
+        {
+            TaskCompletionSource<object> taskSource = new TaskCompletionSource<object>();
+
+            RoutedEventHandler clickHandler = null;
+            clickHandler = new RoutedEventHandler((sender, args) =>
+            {
+                PART_CommandButton.Click -= clickHandler;
+
+                taskSource.SetResult(null);
+
+                ButtonCallback?.Invoke(this);
+            });
+
+            PART_CommandButton.Click += clickHandler;
+
+            return taskSource.Task;
+        }
     }
 }

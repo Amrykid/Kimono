@@ -59,7 +59,7 @@ namespace Kimono.Controls.SnackBar
 
             desiredSnackBarAreaGrid.Children.Add(msgControl);
 
-            await Task.Delay(msgControl.TimeToShow); //todo check for 0
+            await Task.WhenAny(Task.Delay(msgControl.TimeToShow), msgControl.WaitForButtonClickAsync()); //todo check for 0
 
             if (msgControl.NextSnackBarMessage != null)
                 DoPopupAsync(msgControl.NextSnackBarMessage); //recipe for disaster
