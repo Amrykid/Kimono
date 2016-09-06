@@ -117,13 +117,18 @@ namespace Kimono.Controls.SnackBar
 
                 if (msgControl.TimeToShow > 0)
                 {
+                    var timeDelay = Task.Delay(msgControl.TimeToShow);
                     if (msgControl.ButtonVisibility == Visibility.Collapsed)
                     {
-                        await Task.Delay(msgControl.TimeToShow);
+                        await timeDelay;
                     }
                     else
                     {
-                        await Task.WhenAny(Task.Delay(msgControl.TimeToShow), msgControl.WaitForButtonClickAsync());
+                        var buttonTask = msgControl.WaitForButtonClickAsync();
+                        if (await Task.WhenAny(timeDelay, buttonTask) == timeDelay)
+                        {
+                            //todo break down buttonTask to prevent memory leaks
+                        }
                     }
                 }
 
