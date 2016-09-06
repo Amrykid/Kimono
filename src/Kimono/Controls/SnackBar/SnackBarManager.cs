@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,57 +15,126 @@ namespace Kimono.Controls.SnackBar
 {
     public class SnackBarManager
     {
+        private class SnackBarMessageRequest
+        {
+            public Action<SnackBarMessage> ButtonCallback { get; internal set; }
+            public string ButtonText { get; internal set; }
+            public Visibility ButtonVisibility { get; internal set; }
+            public TaskCompletionSource<object> TaskSource { get; internal set; }
+            public string Text { get; internal set; }
+            public int TimeToShow { get; internal set; }
+        }
+
+
         private Grid desiredSnackBarAreaGrid  = null;
+        private ConcurrentQueue<SnackBarMessageRequest> snackQueue = null;
+        private volatile bool queueRunning = false;
         public SnackBarManager(Grid snackBarAreaGrid)
         {
+            if (snackBarAreaGrid == null) throw new ArgumentNullException(nameof(snackBarAreaGrid));
+
             desiredSnackBarAreaGrid = snackBarAreaGrid;
+            snackQueue = new ConcurrentQueue<SnackBarMessageRequest>();
         }
-        public async Task ShowMessageAsync(string message, int msToBeVisible = 10000)
+        public Task ShowMessageAsync(string message, int msToBeVisible = 10000)
         {
-            SnackBarMessage msgControl = new SnackBarMessage();
-            msgControl.Text = message;
-            msgControl.TimeToShow = msToBeVisible;
+            TaskCompletionSource<object> taskSource = new TaskCompletionSource<object>();
 
-            await DoPopupAsync(msgControl);
+            var request = new SnackBarMessageRequest();
+            request.Text = message;
+            request.TimeToShow = msToBeVisible;
+            request.TaskSource = taskSource;
+            request.ButtonVisibility = Visibility.Collapsed;
+
+
+            snackQueue.Enqueue(request);
+
+#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+            RunQueueAsync();
+#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+
+            return taskSource.Task;
         }
 
-        public async Task ShowMessageWithCallbackAsync(string message, string buttonText, Action<SnackBarMessage> callback, int msToBeVisible = 10000)
+        public Task ShowMessageWithCallbackAsync(string message, string buttonText, Action<SnackBarMessage> callback, int msToBeVisible = 10000)
         {
-            SnackBarMessage msgControl = new SnackBarMessage();
-            msgControl.Text = message;
-            msgControl.TimeToShow = msToBeVisible;
+            TaskCompletionSource<object> taskSource = new TaskCompletionSource<object>();
+
+            var request = new SnackBarMessageRequest();
+            request.Text = message;
+            request.TimeToShow = msToBeVisible;
+            request.TaskSource = taskSource;
 
             //too lazy for dependency properties
-            msgControl.ButtonVisibility = Visibility.Visible;
-            msgControl.ButtonText = buttonText;
-            msgControl.ButtonCallback = callback;
+            request.ButtonVisibility = Visibility.Visible;
+            request.ButtonText = buttonText;
+            request.ButtonCallback = callback;
 
-            await DoPopupAsync(msgControl);
+            snackQueue.Enqueue(request);
+
+#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+            RunQueueAsync();
+#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+
+            return taskSource.Task;
         }
 
-        private async Task DoPopupAsync(SnackBarMessage msgControl)
+        private async Task RunQueueAsync()
         {
-            if (desiredSnackBarAreaGrid.Children.Any(x => x is SnackBarMessage))
+            if (queueRunning) return;
+
+            queueRunning = true;
+
+            while(snackQueue.Count > 0)
             {
-                //queue up
+                SnackBarMessageRequest request = null;
 
-                var previousMsg = desiredSnackBarAreaGrid.Children.First(x => x is SnackBarMessage && x != msgControl) as SnackBarMessage;
-
-                if (previousMsg.NextSnackBarMessage == null)
+                if (snackQueue.TryDequeue(out request))
                 {
-                    previousMsg.NextSnackBarMessage = msgControl;
-                    return;
+                    await DoPopupAsync(request);
                 }
             }
 
-            desiredSnackBarAreaGrid.Children.Add(msgControl);
+            queueRunning = false;
+        }
 
-            await Task.WhenAny(Task.Delay(msgControl.TimeToShow), msgControl.WaitForButtonClickAsync()); //todo check for 0
+        private Task DoPopupAsync(SnackBarMessageRequest snackRequest)
+        {
+            TaskCompletionSource<object> popupTask = new TaskCompletionSource<object>();
 
-            if (msgControl.NextSnackBarMessage != null)
-                DoPopupAsync(msgControl.NextSnackBarMessage); //recipe for disaster
+#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+            Window.Current.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, new DispatchedHandler(async () =>
+            {
+                var msgControl = new SnackBarMessage();
+                msgControl.Text = snackRequest.Text;
+                msgControl.ButtonVisibility = snackRequest.ButtonVisibility;
+                msgControl.ButtonText = snackRequest.ButtonText;
+                msgControl.ButtonCallback = snackRequest.ButtonCallback;
+                msgControl.TimeToShow = snackRequest.TimeToShow;
 
-            desiredSnackBarAreaGrid.Children.Remove(msgControl);
+
+                desiredSnackBarAreaGrid.Children.Add(msgControl);
+
+                if (msgControl.TimeToShow > 0)
+                {
+                    if (msgControl.ButtonVisibility == Visibility.Collapsed)
+                    {
+                        await Task.Delay(msgControl.TimeToShow);
+                    }
+                    else
+                    {
+                        await Task.WhenAny(Task.Delay(msgControl.TimeToShow), msgControl.WaitForButtonClickAsync());
+                    }
+                }
+
+                desiredSnackBarAreaGrid.Children.Remove(msgControl);
+
+                snackRequest.TaskSource.SetResult(null); //allow the requester to continue
+                popupTask.SetResult(null); //allow the queue to continue
+            }));
+#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+
+            return popupTask.Task;
         }
 
         private T FindChildOfType<T>(UIElement element) where T : UIElement
