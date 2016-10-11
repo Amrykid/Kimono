@@ -11,11 +11,12 @@
     Background="{ThemeResource SystemControlBackgroundAccentBrush}"
     Foreground="White"
     x:Name="Self"
+    FontSize="17"
     Padding="10">
 
     <Grid Background="{Binding ElementName=Self, Path=Background, UpdateSourceTrigger=PropertyChanged}"
           Padding="{Binding ElementName=Self, Path=Padding, UpdateSourceTrigger=PropertyChanged}">
-        <TextBlock Text="{Binding ElementName=Self, Path=BannerText, UpdateSourceTrigger=PropertyChanged}" FontSize="17" 
+        <TextBlock Text="{Binding ElementName=Self, Path=BannerText, UpdateSourceTrigger=PropertyChanged}" FontSize="{Binding ElementName=Self, Path=FontSize, UpdateSourceTrigger=PropertyChanged}" 
                    FontWeight="SemiBold" 
                    TextAlignment="Center" 
                    HorizontalAlignment="Stretch"
