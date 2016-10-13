@@ -25,6 +25,7 @@ namespace Kimono.Controls.SnackBar
             public int TimeToShow { get; internal set; }
         }
 
+        public event EventHandler NotificationShown;
 
         private Grid desiredSnackBarAreaGrid  = null;
         private ConcurrentQueue<SnackBarMessageRequest> snackQueue = null;
@@ -92,6 +93,9 @@ namespace Kimono.Controls.SnackBar
                 if (snackQueue.TryDequeue(out request))
                 {
                     await DoPopupAsync(request);
+
+                    if (NotificationShown != null)
+                        NotificationShown(this, EventArgs.Empty);
                 }
             }
 
