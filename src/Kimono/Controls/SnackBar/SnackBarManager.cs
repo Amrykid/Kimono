@@ -92,10 +92,12 @@ namespace Kimono.Controls.SnackBar
 
                 if (snackQueue.TryDequeue(out request))
                 {
-                    await DoPopupAsync(request);
+                    var popupTask = DoPopupAsync(request);
 
                     if (NotificationShown != null)
                         NotificationShown(this, EventArgs.Empty);
+
+                    await popupTask;
                 }
             }
 
