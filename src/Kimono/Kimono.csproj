@@ -125,6 +125,7 @@
     <Compile Include="Controls\LoadingContentContainer\LoadingContentContainer.xaml.cs">
       <DependentUpon>LoadingContentContainer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\SnackBar\SnackBarAppearance.cs" />
     <Compile Include="Controls\SnackBar\SnackBarManager.cs" />
     <Compile Include="Controls\SnackBar\SnackBarMessage.xaml.cs">
       <DependentUpon>SnackBarMessage.xaml</DependentUpon>

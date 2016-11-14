@@ -23,6 +23,8 @@ namespace Kimono.Controls.SnackBar
         public SnackBarMessage()
         {
             this.InitializeComponent();
+
+            this.Opacity = SnackBarAppearance.Opacity;
         }
 
         public string Text

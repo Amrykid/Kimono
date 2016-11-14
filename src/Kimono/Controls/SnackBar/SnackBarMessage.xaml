@@ -12,7 +12,6 @@
     Width="Auto"
     MinWidth="300"
     x:Name="control"
-    Opacity=".9"
     Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
     Background="{ThemeResource SystemControlHighlightListAccentLowBrush}">
 
