@@ -25,6 +25,7 @@ namespace Kimono.Controls.SnackBar
             this.InitializeComponent();
 
             this.Opacity = SnackBarAppearance.Opacity;
+            PART_MessageBlock.FontSize = SnackBarAppearance.MessageFontSize;
         }
 
         public string Text
