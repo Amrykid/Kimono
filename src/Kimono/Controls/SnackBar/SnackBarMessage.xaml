@@ -15,12 +15,6 @@
     Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
     Background="{ThemeResource SystemControlHighlightListAccentLowBrush}">
 
-    <UserControl.Transitions>
-        <TransitionCollection>
-            <AddDeleteThemeTransition />
-        </TransitionCollection>
-    </UserControl.Transitions>
-
     <Grid Background="{Binding ElementName=control, Path=Background, UpdateSourceTrigger=PropertyChanged}" 
           Padding="20 10">
         <Grid.ColumnDefinitions>

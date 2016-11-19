@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
 // The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
@@ -26,6 +27,17 @@ namespace Kimono.Controls.SnackBar
 
             this.Opacity = SnackBarAppearance.Opacity;
             PART_MessageBlock.FontSize = SnackBarAppearance.MessageFontSize;
+
+            var transColl = new Windows.UI.Xaml.Media.Animation.TransitionCollection();
+            if (SnackBarAppearance.Transition != null)
+            {
+                transColl.Add(SnackBarAppearance.Transition);
+            }
+            else
+            {
+                transColl.Add(new AddDeleteThemeTransition());
+            }
+            this.Transitions = transColl;
         }
 
         public string Text
