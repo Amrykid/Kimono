@@ -125,6 +125,10 @@
     <Compile Include="Controls\LoadingContentContainer\LoadingContentContainer.xaml.cs">
       <DependentUpon>LoadingContentContainer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\OverlayPanel\IOverlayPanelScreen.cs" />
+    <Compile Include="Controls\OverlayPanel\OverlayPanelManager.cs" />
+    <Compile Include="Controls\OverlayPanel\OverlayPanel.cs" />
+    <Compile Include="Controls\OverlayPanel\ProgressOverlayScreen.cs" />
     <Compile Include="Controls\SnackBar\SnackBarAppearance.cs" />
     <Compile Include="Controls\SnackBar\SnackBarManager.cs" />
     <Compile Include="Controls\SnackBar\SnackBarMessage.xaml.cs">
@@ -153,6 +157,10 @@
     <Page Include="Controls\SnackBar\SnackBarMessage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup />
