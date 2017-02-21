@@ -14,7 +14,7 @@
                         <Grid x:Name="LayoutRoot">
                             <ContentPresenter x:Name="PART_ContentPresenter" 
                                               HorizontalAlignment="Stretch"
-                                              Visibility="Collapsed"
+                                              Visibility="Visible"
                                               VerticalAlignment="Stretch">
                                 <ContentPresenter.ContentTransitions>
                                     <TransitionCollection>
