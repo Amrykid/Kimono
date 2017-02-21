@@ -26,7 +26,7 @@
                             </ContentPresenter>
 
                             <Grid x:Name="PART_SnackBarGrid" VerticalAlignment="Bottom"
-                                  Margin="0 0 0 30" HorizontalAlignment="Center" />
+                                  Margin="0 0 0 50" HorizontalAlignment="Center" />
 
                             <Grid x:Name="PART_OverlayGrid"
                                   HorizontalAlignment="Stretch"
