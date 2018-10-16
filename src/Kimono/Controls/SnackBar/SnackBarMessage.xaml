@@ -25,6 +25,6 @@
                    Style="{ThemeResource CaptionTextBlockStyle}"
                    Grid.Column="0" VerticalAlignment="Center" />
 
-        <Button Visibility="Collapsed" x:Name="PART_CommandButton" Grid.Column="1" />
+        <Button Visibility="Collapsed" x:Name="PART_CommandButton" Margin="10 0 0 0" Grid.Column="1" />
     </Grid>
 </UserControl>
